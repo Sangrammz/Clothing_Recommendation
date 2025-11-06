@@ -1,0 +1,6 @@
+{
+  "Name": "Clothing_Recommendation",
+  "ProjectType": "Process",
+  "Description": "Robot will help in recommending cloths based on user input cities",
+  "MainFile": "Main.xaml"
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="DhlXiJem-kuiS3Poisq-Xw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="google.com/search" CVScreenId="23515473-feb7-4444-a10d-e251431792ff" CvType="AnyWordGroup" DesignTimeRectangle="252, 556, 77, 91" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='wob_tm' tag='SPAN' /&gt;" Guid="f5d31931-164d-41c7-8ab0-baa4b86247d3" ScopeSelectorArgument="&lt;html app='chrome.exe' title='get Weather of goa - Google Search' /&gt;" SearchSteps="Selector, CV, SemanticSelector" SemanticSelectorArgument="The text displaying the current temperature in Celsius" Version="V6" WaitForReadyArgument="Interactive">
+      <imageRef attrName="InformativeScreenshot" originalValue="d9788d9dec3ced9b2031d66096290c90.png" xmlns="">0TJX4U0i5JECetavYUOzWNQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">GetText</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="MfY5TneZOEOHQyyK5Ve6zQ" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="google.com/search" CVScreenId="c4e0131c-d11f-4f30-b43a-a3500e77d006" CvTextArea="248, 570, 81, 60" CvTextArgument="29" CvType="Text" DesignTimeRectangle="252, 556, 77, 91" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='wob_tm' tag='SPAN' /&gt;" Guid="d31eacfc-a3ca-4a4f-a1e0-9bb8d1e20019" ScopeSelectorArgument="&lt;html app='chrome.exe' title='get Weather of goa - Google Search' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <imageRef attrName="InformativeScreenshot" originalValue="d9788d9dec3ced9b2031d66096290c90.png" xmlns="">0OHb00DvH7UeJj2cMfciEug</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">SetText</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

@@ -1,0 +1,14 @@
+﻿{
+  "Name": "combo box Search Google…",
+  "Type": "Element",
+  "TaxonomyType": "Dropdown",
+  "Id": "1KxFkrIQH0-KKSQC9TOAVw",
+  "Reference": "GNbWmXhJuECUK9TPAx901A/1KxFkrIQH0-KKSQC9TOAVw",
+  "ParentRef": "GNbWmXhJuECUK9TPAx901A/sOinCA19506qUGM7KO7GTQ",
+  "Created": "2025-10-31T19:32:13.0287004Z",
+  "Updated": "2025-10-31T19:32:13.0287004Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.19.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}
