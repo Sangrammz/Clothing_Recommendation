@@ -1,132 +1,128 @@
-Data Capturing Bot Workflow
 
-This project automates Excel data entry into both web and desktop applications using UiPath. Both workflows are executed in parallel from the main file.
+
+This project Take City Input As User Input and check the temprature and type of wether and recomend cloths according to that
 
 How To Create
 ---------------------------------------------------------
 
-Step 1: Create Project
+Step 1: Create the Project
 
 Open UiPath Studio.
 
-Click on Process → select Blank Process.
+Click Process → Blank Process.
 
-Name the project as DataCapturingBot.
+Name it ClothingRecommendationBot → choose location → Click Create.
 
-Choose a folder location and click Create.
+Step 2: Add Main Workflow
 
-Step 2: Create WebDataCapturingBot.xaml
+In the Project panel, right-click the project → Add → New Sequence.
 
-In the Project panel, right-click the project and select Add → New Sequence.
+Name it Main.xaml.
 
-Name it WebDataCapturingBot.xaml.
+Open Main.xaml — this will be the main automation workflow.
 
-Drag and drop a Read Range activity.
+Step 3: Define Variables
 
-Select the Excel file path from your local system.
+Create variables in the sequence:
+CityName (String)
+Temp (String)
+weather (String)
+Outfit (String)
+RainGear (String)
 
-Create a DataTable variable named dtInputData to store the Excel data.
+Step 4: Get City Name from User
 
-Drag a Use Application or Browser activity and open the target web page where you want to enter data.
+Add an Input Dialog activity.
 
-Inside it, drag a For Each Row in DataTable activity and select dtInputData.
+Prompt: "Enter city name".
 
-Inside the loop:
-a. Use Type Into activity to fill text fields such as Name and Email.
-b. Add an If activity to handle the Gender radio button.
+Store the result in CityName.
 
-Condition: row("Gender").ToString.ToLower = "male"
+Step 5: Open Browser and Search Weather
 
-Then: Click Male option
+Add a Use Application/Browser activity and point it to your browser (or use Open Browser with a blank page).
 
-Else: Click Female option
-c. Use Select Item activity for dropdown fields and set the value as row("City").ToString.
-d. Use Click activity to click on the Submit button.
+Inside the browser scope, add a Type Into activity.
 
-Save and run to test the workflow.
+Type the search query: "weather in " + CityName + " in fahrenheit" into the search bar and send Enter.
 
-Step 3: Create DesktopDataCapturingBot.xaml
+Add a short Delay (1–2 seconds) to allow the page to load.
 
-In the Project panel, add another new Sequence named DesktopDataCapturingBot.xaml.
+Step 6: Extract Temperature and Weather Description
 
-Add a Read Range activity to read Excel data.
+Use Get Text (or NGetText if using modern activities) to scrape the temperature element from the results page and store it in Temp.
 
-Select the Excel file path and store the data in dtDesktopData variable.
+Use another Get Text to scrape the weather description (e.g., Sunny, Rain) and store it in weather.
 
-Add a Use Application or Browser activity and indicate the desktop application window.
+Trim and normalize extracted values if needed:
+Temp = Temp.Replace("°", "").Trim()
+weather = weather.Trim().ToLower()
 
-Inside it, drag a For Each Row in DataTable activity and select dtDesktopData.
+Step 7: Create Flowchart for Analysis
 
-Inside the loop:
-a. Use Type Into activity to enter data in text boxes.
-b. Add an If activity to handle gender options.
+Add a Flowchart activity and name it AnalyseTheWeather.
 
-Condition: row("Gender").ToString.ToLower = "male"
+Add a FlowDecision to check for rain:
+Condition: weather.Contains("rain") Or weather.Contains("showers") Or weather.Contains("thunderstorm")
 
-Then: Click Male option
+If True (raining):
+Assign RainGear = "Bring an umbrella"
+Continue to final outfit decision or directly to display (you may still set Outfit based on Temp)
 
-Else: Click Female option
-c. Use Select Item activity for dropdown fields like row("Department").ToString.
-d. Use Click activity to press the Submit or Save button.
+If False (not raining):
+Add a FlowDecision to check if very cold:
+Condition: Convert.ToInt32(Temp) < 40
+If True:
+Assign Outfit = "It is very cold outside keep a jacket handy"
+Continue to display
+If False:
+Add a FlowDecision to check if too hot:
+Condition: Convert.ToInt32(Temp) > 75
+If True:
+Assign Outfit = "Weather is Sunny Wear a T-shirt, Shorts and a Hat"
+If False:
+Assign Outfit = "Weather is clear outside wear jeans and a shirt"
 
-Save and test the workflow to ensure correct data entry.
+Step 8: Combine RainGear and Outfit
 
-Step 4: Configure Main.xaml to Run Both Workflows
+After flowchart decisions, ensure RainGear has a value when applicable (set to empty string "" if not raining).
 
-Open Main.xaml file (the default workflow).
+Build the final recommendation string:
+recommendation = "City: " + CityName + Environment.NewLine +
+"Temperature: " + Temp + "°F" + Environment.NewLine +
+"Condition: " + weather + Environment.NewLine +
+"Outfit: " + Outfit + (If(String.IsNullOrWhiteSpace(RainGear), "", Environment.NewLine + "Rain Gear: " + RainGear))
 
-Drag and drop a Parallel activity.
+Step 9: Display Recommendation
 
-Inside the Parallel activity:
-a. Add the first Invoke Workflow File activity and select WebDataCapturingBot.xaml.
-b. Add the second Invoke Workflow File activity and select DesktopDataCapturingBot.xaml.
+Add a Message Box activity.
 
-Click Debug or Run to see both workflows executing simultaneously.
+Set the text to recommendation to show the user the full suggestion.
 
-Step 5: Connect Project to GitHub
+Step 10: Debug and Run
 
-Create a new repository in GitHub and name it DataCapturingBot.
+Save all files.
 
-In UiPath Studio, go to Home → Team → GIT → Init Repository.
+Click Debug File or Run File.
 
-Add the remote URL of your GitHub repository.
+Enter a sample city when prompted, observe browser scraping, and verify the recommendation shown in the message box.
 
-Click Commit and Push to upload your project files.
+If the page selectors fail, re-indicate elements or add delays; adjust text parsing for different weather result formats.
 
-Verify that the following files are uploaded:
+Step 11: Optional Improvements
 
-Main.xaml
+Add exception handling around browser scraping (Try Catch) to handle navigation or selector failures.
 
-WebDataCapturingBot.xaml
+Add validation to ensure Temp parses to integer safely (use Int32.TryParse and default behavior if parsing fails).
 
-DesktopDataCapturingBot.xaml
+Use assets or config file for user preferences (temperature units, outfit text variations).
 
-project.json
+Replace browser scraping with a weather API call (Http Request) for more reliable structured data if desired.
 
-.gitignore
+Step 12: Save and Add to GitHub
 
-Output
+Save the project.
 
-The bot reads data from Excel.
+Initialize Git in UiPath Studio (Home → Team → GIT → Init Repository).
 
-It enters data into both web and desktop applications.
-
-It fills text boxes, selects dropdowns, and handles radio buttons dynamically.
-
-Both workflows run in parallel from the main file.
-
-The entire project is version-controlled in GitHub.
-
-Summary
-
-This project demonstrates how to:
-
-Read data from Excel files.
-
-Automate both web and desktop form filling.
-
-Execute multiple workflows in parallel.
-
-Use conditional logic for handling gender and dropdowns.
-
-Connect and manage UiPath projects with GitHub.
+Commit and push the project to your GitHub repository for version control.
